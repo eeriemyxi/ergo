@@ -94,7 +94,7 @@ def process_text(text: TextIO) -> None:
                     break
                 string += c
 
-        if c == "." and isident(text.peek()):
+        if c == "." and text.peek().isalnum():
             tokens.append(Token(TokenType.KEY_PREFIX, c))
 
         if c == "":
