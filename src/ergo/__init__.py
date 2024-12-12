@@ -1,7 +1,7 @@
 import argparse
 import io
 import logging
-import pathlib
+import typing
 from dataclasses import dataclass
 from enum import Enum, auto
 
@@ -22,7 +22,7 @@ class Token:
 log = logging.getLogger(__name__)
 
 
-class TextIO(io.StringIO):
+class CustomTextIO(io.StringIO):
     def peek(self, n: int = 1) -> str:
         opos = self.tell()
         char = self.read(n)
@@ -62,7 +62,7 @@ def isident(c: str) -> bool:
     return c.isalpha() or c == "-"
 
 
-def process_text(text: TextIO) -> None:
+def process_text(text: CustomTextIO) -> None:
     tokens = []
 
     while True:
@@ -104,9 +104,8 @@ def process_text(text: TextIO) -> None:
     return make_ast(tokens)
 
 
-def process_file(file: pathlib.Path) -> None:
-    with open(file) as file_buf:
-        text = TextIO(file_buf.read())
+def process_file(file: typing.TextIO) -> None:
+    text = CustomTextIO(file.read())
     ast = process_text(text)
     _pprint(ast)
 
@@ -115,12 +114,10 @@ def main() -> None:
     logging.basicConfig(level="DEBUG")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("file", type=pathlib.Path)
+    parser.add_argument("file", type=argparse.FileType("r"))
     args = parser.parse_args()
 
     if args.file:
-        if not args.file.exists():
-            log.error(f"file '{args.file}' doesn't exist")
         process_file(args.file)
 
 
