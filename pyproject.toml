@@ -1,0 +1,20 @@
+[project]
+name = "ergo"
+version = "0.1.0"
+description = "A simple shell language that is ergonomic for smartphone users."
+readme = "README.md"
+authors = [
+    { name = "myxi", email = "myxi@envs.net" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+ergo = "ergo:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.workspace]
+members = ["ergo"]
