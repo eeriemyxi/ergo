@@ -30,6 +30,12 @@ class TextIO(io.StringIO):
         return char
 
 
+def _pprint(*args, **kwargs):
+    import pprint
+
+    pprint.pprint(*args, **kwargs)
+
+
 def make_ast(tokens: list[Token]) -> list[Token]:
     i = 0
     tree = []
@@ -102,7 +108,7 @@ def process_file(file: pathlib.Path) -> None:
     with open(file) as file_buf:
         text = TextIO(file_buf.read())
     ast = process_text(text)
-    print(ast)
+    _pprint(ast)
 
 
 def main() -> None:
