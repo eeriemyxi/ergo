@@ -5,7 +5,6 @@ import typing
 from dataclasses import dataclass
 from enum import Enum, auto
 
-
 class TokenType(Enum):
     IDENT = auto()
     STRING = auto()
@@ -22,7 +21,7 @@ class Token:
 log = logging.getLogger(__name__)
 
 
-class CustomTextIO(io.StringIO):
+class CustomStringIO(io.StringIO):
     def peek(self, n: int = 1) -> str:
         opos = self.tell()
         char = self.read(n)
@@ -62,7 +61,7 @@ def isident(c: str) -> bool:
     return c.isalpha() or c == "-"
 
 
-def process_text(text: CustomTextIO) -> None:
+def process_text(text: CustomStringIO) -> None:
     tokens = []
 
     while True:
@@ -105,7 +104,7 @@ def process_text(text: CustomTextIO) -> None:
 
 
 def process_file(file: typing.TextIO) -> None:
-    text = CustomTextIO(file.read())
+    text = CustomStringIO(file.read())
     ast = process_text(text)
     _pprint(ast)
 
