@@ -13,13 +13,23 @@ def tokenize(text: util.CustomStringIO) -> None:
 
         if c.isalpha():
             ident = c
-            while text.peek() != " ":
+            while not text.peek().isspace():
                 c = text.read(1)
                 if not c.isalnum() and c != "-":
                     log.error("Invalid identifier %s", repr(ident + c))
                     exit(1)
                 ident += c
             tokens_list.append(tokens.Token(tokens.TokenType.IDENT, ident))
+
+        if c.isdigit():
+            number = c
+            while not text.peek().isspace():
+                c = text.read(1)
+                if not c.isdigit():
+                    log.error("Invalid number %s", number + c)
+                    exit(1)
+                number += c
+            tokens_list.append(tokens.Token(tokens.TokenType.NUMBER, int(number)))
 
         if c == "." and text.peek() == ".":
             text.read(1)
