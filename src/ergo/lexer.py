@@ -29,7 +29,12 @@ def tokenize(text: util.CustomStringIO) -> None:
                     log.error("Invalid number: %s", number + c)
                     exit(1)
                 number += c
-            tokens_list.append(tokens.Token(tokens.TokenType.NUMBER, int(number)))
+            try:
+                convnum = float(number)
+            except ValueError:
+                log.error("Invalid number: %s", number + c)
+                exit(1)
+            tokens_list.append(tokens.Token(tokens.TokenType.NUMBER, convnum))
 
         if c == "." and text.peek() == ".":
             text.read(1)
