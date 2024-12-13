@@ -17,8 +17,8 @@ like this:
 [Token(type=<TokenType.IDENT: 1>, literal='cmd-here', children=[]),
  Token(type=<TokenType.ARG: 5>, literal='arg without key here', children=[]),
  Token(type=<TokenType.ARG: 5>,
-       literal='another arg without key here "with quotes" and 1 2 4 numbers, '
-               'and so on.',
+       literal='another arg without key here .. \\ "with quotes" and 1 2 4 '
+               'numbers, and so on.',
        children=[]),
  Token(type=<TokenType.KEY: 4>,
        literal='arg1',

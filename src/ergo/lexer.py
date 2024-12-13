@@ -29,6 +29,13 @@ def tokenize(text: util.CustomStringIO) -> None:
                 if c == "":
                     log.error("Unterminated string '%s'", repr(string + c))
                     exit(1)
+                if c == "\\":
+                    if text.peek() == ".":
+                        string += ".."
+                    elif text.peek() == "\\":
+                        string += "\\"
+                    text.read(1)
+                    continue
                 if c == "." and text.peek() == ".":
                     text.read(1)
                     if text.peek() == ".":
