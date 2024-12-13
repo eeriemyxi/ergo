@@ -16,7 +16,7 @@ def tokenize(text: util.CustomStringIO) -> None:
             while not text.peek().isspace():
                 c = text.read(1)
                 if not c.isalnum() and c != "-":
-                    log.error("Invalid identifier %s", repr(ident + c))
+                    log.error("Invalid identifier: %s", repr(ident + c))
                     exit(1)
                 ident += c
             tokens_list.append(tokens.Token(tokens.TokenType.IDENT, ident))
@@ -25,8 +25,8 @@ def tokenize(text: util.CustomStringIO) -> None:
             number = c
             while not text.peek().isspace():
                 c = text.read(1)
-                if not c.isdigit():
-                    log.error("Invalid number %s", number + c)
+                if not c.isdigit() and c != ".":
+                    log.error("Invalid number: %s", number + c)
                     exit(1)
                 number += c
             tokens_list.append(tokens.Token(tokens.TokenType.NUMBER, int(number)))
