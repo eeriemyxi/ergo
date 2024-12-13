@@ -14,14 +14,33 @@ Android SDK.
 like this:
 
 ```py
-[Token(type=<TokenType.IDENT: 1>, literal='cmd-here'),
- Token(type=<TokenType.STRING: 2>, literal='value here'),
- Token(type=<TokenType.STRING: 2>,
-       literal='another value here "with quotes" and 1 2 4 numbers, and so on.'),
- Token(type=<TokenType.KEY: 4>, literal='arg1'),
- Token(type=<TokenType.STRING: 2>, literal='arg1 value'),
- Token(type=<TokenType.KEY: 4>, literal='arg2'),
- Token(type=<TokenType.STRING: 2>, literal='arg2 value')]
+[Token(type=<TokenType.IDENT: 1>, literal='cmd-here', children=[]),
+ Token(type=<TokenType.ARG: 5>, literal='arg without key here', children=[]),
+ Token(type=<TokenType.ARG: 5>,
+       literal='another arg without key here "with quotes" and 1 2 4 numbers, '
+               'and so on.',
+       children=[]),
+ Token(type=<TokenType.KEY: 4>,
+       literal='arg1',
+       children=[Token(type=<TokenType.STRING: 2>,
+                       literal='arg1 value',
+                       children=[])]),
+ Token(type=<TokenType.KEY: 4>,
+       literal='arg2',
+       children=[Token(type=<TokenType.STRING: 2>,
+                       literal='arg2 value',
+                       children=[]),
+                 Token(type=<TokenType.STRING: 2>,
+                       literal="arg2's another value here",
+                       children=[]),
+                 Token(type=<TokenType.STRING: 2>,
+                       literal="arg2's third value is here",
+                       children=[])]),
+ Token(type=<TokenType.KEY: 4>,
+       literal='arg3',
+       children=[Token(type=<TokenType.STRING: 2>,
+                       literal="arg3's value",
+                       children=[])])]
 ```
 ## Building
 After cloning the repo, you can do the following with `uv` (a package manager)
