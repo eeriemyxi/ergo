@@ -15,6 +15,8 @@ def make_tokens(text: util.CustomStringIO) -> None:
             ident = c
             while not text.peek().isspace():
                 c = text.read(1)
+                if c == "":
+                    break
                 if not c.isalnum() and c != "-":
                     log.error("Invalid identifier: %s", repr(ident + c))
                     exit(1)
@@ -25,6 +27,8 @@ def make_tokens(text: util.CustomStringIO) -> None:
             number = c
             while not text.peek().isspace():
                 c = text.read(1)
+                if c == "":
+                    break
                 if not c.isdigit() and c != ".":
                     log.error("Invalid number: %s", number + c)
                     exit(1)
