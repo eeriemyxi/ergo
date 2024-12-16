@@ -2,14 +2,15 @@ import argparse
 import logging
 import typing
 
-from ergo import lexer, util
+from ergo import lexer, parser, util
 
 log = logging.getLogger(__name__)
 
 
 def process_file(file: typing.TextIO) -> None:
     text = util.CustomStringIO(file.read())
-    ast = lexer.tokenize(text)
+    tokens = lexer.make_tokens(text)
+    ast = parser.make_ast(tokens)
     util._pprint(ast)
 
 

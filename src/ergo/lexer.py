@@ -1,11 +1,11 @@
 import logging
 
-from ergo import parser, tokens, util
+from ergo import tokens, util
 
 log = logging.getLogger(__name__)
 
 
-def tokenize(text: util.CustomStringIO) -> None:
+def make_tokens(text: util.CustomStringIO) -> None:
     tokens_list = []
 
     while True:
@@ -66,4 +66,4 @@ def tokenize(text: util.CustomStringIO) -> None:
             log.debug("Reached end of file.")
             break
 
-    return parser.make_ast(tokens_list)
+    return tokens_list
