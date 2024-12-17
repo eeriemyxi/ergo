@@ -24,7 +24,9 @@ def make_ast(tokens_list: list[tokens.Token]) -> list[tokens.Token]:
             tree.append(token)
             i += 1
         elif token.type in (tokens.TokenType.STRING, tokens.TokenType.NUMBER):
-            if tree[-1].type == tokens.TokenType.KEY:
+            if len(tokens_list) == 1:
+                tree.append(tokens.Token(tokens.TokenType.STRING, token.literal))
+            elif tree[-1].type == tokens.TokenType.KEY:
                 key = tree[-1]
                 key.children.append(token)
             else:
